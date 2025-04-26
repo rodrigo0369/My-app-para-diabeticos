@@ -1,7 +1,7 @@
-// lib/screens/habit_list_screen.dart
 import 'package:flutter/material.dart';
 import '../widgets/habit_list_item.dart';
 import '../models/habit.dart';
+import '../widgets/add_habit_dialog.dart'; // Importa el diálogo
 
 class HabitListScreen extends StatefulWidget {
   const HabitListScreen({Key? key}) : super(key: key);
@@ -11,14 +11,12 @@ class HabitListScreen extends StatefulWidget {
 }
 
 class _HabitListScreenState extends State<HabitListScreen> {
-  // Lista de hábitos (esto eventualmente vendrá de una fuente de datos)
   List<Habit> habits = [
     Habit(title: 'Tomar medicina', reminderTime: DateTime.now().add(const Duration(hours: 8, minutes: 0))),
     Habit(title: 'Medir glucosa'),
     Habit(title: 'Caminar 30 minutos', isCompleted: true),
   ];
 
-  // Contador de hábitos completados hoy
   int completedHabitsCount = 0;
 
   @override
@@ -27,10 +25,16 @@ class _HabitListScreenState extends State<HabitListScreen> {
     _updateCompletedHabitsCount();
   }
 
-  // Función para actualizar el contador de hábitos completados
   void _updateCompletedHabitsCount() {
     setState(() {
       completedHabitsCount = habits.where((habit) => habit.isCompleted).length;
+    });
+  }
+
+  void _addHabit(Habit newHabit) {
+    setState(() {
+      habits.add(newHabit);
+      _updateCompletedHabitsCount();
     });
   }
 
@@ -64,6 +68,20 @@ class _HabitListScreenState extends State<HabitListScreen> {
             },
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final result = await showDialog<Habit>(
+            context: context,
+            builder: (BuildContext context) {
+              return const AddHabitDialog();
+            },
+          );
+          if (result != null) {
+            _addHabit(result);
+          }
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
