@@ -9,7 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  intl: ^0.18.0 # La versión más reciente al momento de escribir esto
+  intl: ^0.18.1 # La versión más reciente al momento de escribir esto
+  flutter_local_notifications: ^16.3.2 # Añade esta línea para el plugin de notificaciones
 
 dev_dependencies:
   flutter_test:
