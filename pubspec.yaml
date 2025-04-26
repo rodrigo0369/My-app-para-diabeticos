@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  intl: ^0.18.0 # La versión más reciente al momento de escribir esto
 
 dev_dependencies:
   flutter_test:
