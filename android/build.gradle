@@ -1,25 +1,30 @@
 buildscript {
-   ext.kotlin_version = '1.7.10' // O la versión que uses
-   repositories {
-       google()
-       mavenCentral()
-   }
-   dependencies {
-       classpath 'com.android.tools.build:gradle:8.1.1' // O la versión que uses
-       classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-   }
+    ext.kotlin_version = '1.7.10' // O una versión compatible
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.3.0' // O una versión compatible
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
 }
 
 allprojects {
-   repositories {
-       google()
-       mavenCentral()
-   }
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
 
 rootProject.buildDir = '../build'
 subprojects {
-   project.buildDir = "${rootProject.buildDir}/${project.name}"
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
 }
 
 task clean(type: Delete) {
